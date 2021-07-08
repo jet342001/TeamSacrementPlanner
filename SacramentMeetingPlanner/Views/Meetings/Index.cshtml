@@ -1,0 +1,107 @@
+﻿@model IEnumerable<SacramentMeetingPlanner.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conductor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningSong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningSongNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SacramentSong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SacramentSongNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingSong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntermediateSong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntermediateSongNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MusicalNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningPrayerBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingPrayerBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conductor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningSong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningSongNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SacramentSong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SacramentSongNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingSong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntermediateSong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntermediateSongNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MusicalNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningPrayerBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingPrayerBy)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MeetingId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MeetingId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MeetingId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
