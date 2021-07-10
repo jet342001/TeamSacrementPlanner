@@ -11,7 +11,7 @@ namespace SacramentMeetingPlanner.Models
         [Required]
         public int MeetingId { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "t")]
+        [DisplayFormat(DataFormatString = "{0:yyyy - MM - dd}" )]
         [Display(Name = "Start Time")]
         public DateTime StartAt { get; set; }
         public string Conductor { get; set; }
@@ -36,8 +36,8 @@ namespace SacramentMeetingPlanner.Models
         [Display(Name = "Intermediate Song")]
         public string IntermediateSong { get; set; }
         [Display(Name = "Intermediate Song Number")]
-        [Range(0, 342)]
-        public int IntermediateSongNumber { get; set; }
+        [Range( 0, 341)]
+        public int? IntermediateSongNumber { get; set; }
         [Display(Name = "Musical Number")]
         public string MusicalNumber { get; set; }
         [Required]
