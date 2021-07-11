@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
+using SacramentMeetingPlanner.Extensions;
 using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner
