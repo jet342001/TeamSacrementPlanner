@@ -46,7 +46,6 @@ namespace SacramentMeetingPlanner.Controllers
             return View(meeting);
         }
 
-        // GET: Meetings/Details/5
         public async Task<IActionResult> Print(int? id)
         {
             if (id == null)
@@ -61,6 +60,7 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
+            LoadAllUsedHymns(meeting);
             return View(meeting);
         }
 

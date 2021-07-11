@@ -18,7 +18,6 @@ namespace SacramentMeetingPlanner.Models
         public static void AddHymns(this IServiceCollection services)
         {
             var library = new HymnLibrary();
-            library.Load();
             services.AddSingleton(library);
         }
     }
@@ -190,6 +189,9 @@ namespace SacramentMeetingPlanner.Models
         public string SongNumber { get; set; }
         [JsonPropertyName("detailColumn")]
         public string DetailColumn { get; set; }
+
+        [JsonIgnore]
+        public string DisplayName => SongNumber + " - " + Name;
     }
 
 }
