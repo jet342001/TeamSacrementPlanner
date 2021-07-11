@@ -23,53 +23,29 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Conductor)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OpeningSong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OpeningSong)
-        </dd>
-        <dt class = "col-sm-2">
+       <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.OpeningSongNumber)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OpeningSongNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SacramentSong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SacramentSong)
-        </dd>
+       <dd class="col-sm-10">
+           @await Html.PartialAsync("_HymnDetails", ViewData["OpeningHymn"])
+       </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SacramentSongNumber)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SacramentSongNumber)
+        <dd class="col-sm-10">
+            @await Html.PartialAsync("_HymnDetails", ViewData["SacramentHymn"])
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClosingSong)
+            @Html.DisplayNameFor(model => model.ClosingSongNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClosingSong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClosingNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClosingNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IntermediateSong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IntermediateSong)
+            @await Html.PartialAsync("_HymnDetails", ViewData["ClosingHymn"])
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IntermediateSongNumber)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IntermediateSongNumber)
+        <dd class="col-sm-10">
+            @await Html.PartialAsync("_HymnDetails", ViewData["IntermediateHymn"])
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MusicalNumber)

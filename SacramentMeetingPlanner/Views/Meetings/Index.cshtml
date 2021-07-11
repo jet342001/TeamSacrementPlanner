@@ -19,25 +19,13 @@
                 @Html.DisplayNameFor(model => model.Conductor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OpeningSong)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OpeningSongNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SacramentSong)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SacramentSongNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClosingSong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClosingNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IntermediateSong)
+                @Html.DisplayNameFor(model => model.ClosingSongNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IntermediateSongNumber)
@@ -64,28 +52,16 @@
                 @Html.DisplayFor(modelItem => item.Conductor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OpeningSong)
+                @await Html.PartialAsync("_HymnDetails", ViewData[$"Hymn-{item.OpeningSongNumber}"])
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OpeningSongNumber)
+                @await Html.PartialAsync("_HymnDetails", ViewData[$"Hymn-{item.SacramentSongNumber}"])
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SacramentSong)
+                @await Html.PartialAsync("_HymnDetails", ViewData[$"Hymn-{item.ClosingSongNumber}"])
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SacramentSongNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClosingSong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClosingNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IntermediateSong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IntermediateSongNumber)
+                @await Html.PartialAsync("_HymnDetails", ViewData[$"Hymn-{item.IntermediateSongNumber}"])
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MusicalNumber)

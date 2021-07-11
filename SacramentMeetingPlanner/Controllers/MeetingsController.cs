@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
 using SacramentMeetingPlanner.Models;
@@ -13,16 +10,20 @@ namespace SacramentMeetingPlanner.Controllers
     public class MeetingsController : Controller
     {
         private readonly MeetingContext _context;
+        private readonly HymnLibrary _hymnLibrary;
 
-        public MeetingsController(MeetingContext context)
+        public MeetingsController(MeetingContext context, HymnLibrary hymnLibrary)
         {
             _context = context;
+            _hymnLibrary = hymnLibrary;
         }
 
         // GET: Meetings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Meeting.ToListAsync());
+            var meetings = await _context.Meeting.ToListAsync();
+            meetings.ForEach(LoadAllUsedHymns);
+            return View(meetings);
         }
 
         // GET: Meetings/Details/5
@@ -40,12 +41,18 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
+            LoadUsedHymns(meeting);
+
             return View(meeting);
         }
+
+        
 
         // GET: Meetings/Create
         public IActionResult Create()
         {
+            ViewBag.HymnSelectionList = _hymnLibrary.GetSelectionList();
+
             return View();
         }
 
@@ -54,7 +61,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSong,OpeningSongNumber,SacramentSong,SacramentSongNumber,ClosingSong,ClosingNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
+        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,ClosingSongNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +69,8 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.HymnSelectionList = _hymnLibrary.GetSelectionList();
             return View(meeting);
         }
 
@@ -78,6 +87,8 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.HymnSelectionList = _hymnLibrary.GetSelectionList();
             return View(meeting);
         }
 
@@ -86,7 +97,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MeetingId,StartAt,Conductor,OpeningSong,OpeningSongNumber,SacramentSong,SacramentSongNumber,ClosingSong,ClosingNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
+        public async Task<IActionResult> Edit(int id, [Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,ClosingSongNumber,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
         {
             if (id != meeting.MeetingId)
             {
@@ -113,6 +124,8 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.HymnSelectionList = _hymnLibrary.GetSelectionList();
             return View(meeting);
         }
 
@@ -131,6 +144,7 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
+            LoadUsedHymns(meeting);
             return View(meeting);
         }
 
@@ -148,6 +162,29 @@ namespace SacramentMeetingPlanner.Controllers
         private bool MeetingExists(int id)
         {
             return _context.Meeting.Any(e => e.MeetingId == id);
+        }
+
+        private void LoadUsedHymns(Meeting meeting)
+        {
+            ViewData["OpeningHymn"] = _hymnLibrary.GetHymn(meeting.OpeningSongNumber);
+            ViewData["SacramentHymn"] = _hymnLibrary.GetHymn(meeting.SacramentSongNumber);
+            ViewData["ClosingHymn"] = _hymnLibrary.GetHymn(meeting.ClosingSongNumber);
+            if (meeting.IntermediateSongNumber.HasValue)
+                ViewData["IntermediateHymn"] = _hymnLibrary.GetHymn(meeting.IntermediateSongNumber.Value);
+        }
+
+        private void LoadAllUsedHymns(Meeting meeting)
+        {
+            LoadHymn(meeting.OpeningSongNumber);
+            LoadHymn(meeting.SacramentSongNumber);
+            LoadHymn(meeting.ClosingSongNumber);
+            if (meeting.IntermediateSongNumber.HasValue)
+                LoadHymn(meeting.IntermediateSongNumber.Value);
+        }
+
+        private void LoadHymn(int hymnNumber)
+        {
+            ViewData[$"Hymn-{hymnNumber}"] ??= _hymnLibrary.GetHymn(hymnNumber);
         }
     }
 }

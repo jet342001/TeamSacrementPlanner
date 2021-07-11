@@ -10,18 +10,22 @@ namespace SacramentMeetingPlanner.Models
     {
         [Required]
         public int MeetingId { get; set; }
+        [Display(Name = "Start At")]
         public DateTime StartAt { get; set; }
         public string Conductor { get; set; }
-        public string OpeningSong { get; set; }
+        [Display(Name = "Opening Song")]
         public int OpeningSongNumber { get; set; }
-        public string SacramentSong { get; set; }
+        [Display(Name = "Sacramental Song")]
         public int SacramentSongNumber { get; set; }
-        public string ClosingSong { get; set; }
-        public int ClosingNumber { get; set; }
-        public string IntermediateSong { get; set; }
-        public int IntermediateSongNumber { get; set; }
+        [Display(Name = "Closing Song")]
+        public int ClosingSongNumber { get; set; }
+        [Display(Name = "Intermediate Song")]
+        public int? IntermediateSongNumber { get; set; }
+        [Display(Name = "Musical Number")]
         public string MusicalNumber { get; set; }
+        [Display(Name = "Opening Prayer")]
         public string OpeningPrayerBy { get; set; }
+        [Display(Name = "Closing Prayer")]
         public string ClosingPrayerBy { get; set; }
     }
 }
