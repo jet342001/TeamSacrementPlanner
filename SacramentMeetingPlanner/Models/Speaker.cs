@@ -11,8 +11,14 @@ namespace SacramentMeetingPlanner.Models
         [Required]
         public int SpeakerId { get; set; }
         public int MeetingId { get; set; }
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
         public string Name { get; set; }
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
         public string Subject { get; set; }
+        [Required]
+        [Range(0, 5)]
         public int Order { get; set; }
     }
 }

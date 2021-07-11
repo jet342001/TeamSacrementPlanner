@@ -1,0 +1,97 @@
+﻿@model SacramentMeetingPlanner.Models.Meeting
+
+@{
+    ViewData["Title"] = "Print page";
+}
+
+
+<div class="print border slight-offset">
+<h2 class="print-title">
+Sacrament Meeting
+<br>
+@Html.DisplayFor(model => model.StartAt)
+<h2>
+
+<div Class="conductor">
+    @Html.DisplayNameFor(model => model.Conductor) ---------------------------------
+    @Html.DisplayFor(model => model.Conductor)
+</div>
+
+<div class="opening-hymn">
+    Opening Hymm ---------------------------  Hymn @Html.DisplayFor(model => model.OpeningSongNumber)<br>
+    <div class="song-name">
+    @Html.DisplayFor(model => model.OpeningSong)
+    </div>
+</div>
+
+<div class="invocation">
+    Invocation	--------------------------------- @Html.DisplayFor(model => model.OpeningPrayerBy)
+</div>
+
+<div class="speaker-1">
+    First Speaker ------------------------------ (placeholder)
+</div>
+
+<div class="sacrament-hymn">
+     @Html.DisplayNameFor(model => model.SacramentSong) -------------------------- Hymn @Html.DisplayFor(model => model.SacramentSongNumber)<br>
+    <div class="song-name">
+        @Html.DisplayFor(model => model.SacramentSong)
+    </div>
+</div>
+
+<div class="speaker-2">
+    Second Speaker -------------------------- (placeholder)
+</div>
+
+
+@if ( Model.IntermediateSongNumber != 0){
+<div class="">
+    @Html.DisplayNameFor(model => model.IntermediateSong) ----------------------- Hymn @Html.DisplayFor(model => model.IntermediateSongNumber)
+    <br>
+    <div class="song-name">
+        @Html.DisplayFor(model => model.IntermediateSong)
+    </div>
+</div>
+}
+
+@if ( Model.MusicalNumber != null){
+    <div class="musical-number">
+         @Html.DisplayNameFor(model => model.MusicalNumber)
+        -------------------------
+         @Html.DisplayFor(model => model.MusicalNumber)
+    </div>
+}
+
+<div class="speaker-3">
+    Last Speaker ----------------------------- (placeholder)
+</div>
+
+<div class="closing-song">
+    @Html.DisplayNameFor(model => model.ClosingSong)
+    ----------------------------- Hymn
+    @Html.DisplayFor(model => model.ClosingNumber)
+
+    <br>
+    <div class="song-name">
+        @Html.DisplayFor(model => model.ClosingSong)
+    </div>
+</div>
+
+<div class="closing-prayer">
+    Benediction ------------------------------ @Html.DisplayFor(model => model.ClosingPrayerBy)
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+    <button onClick="PrintElem('.print')">print info</a>
+</div>

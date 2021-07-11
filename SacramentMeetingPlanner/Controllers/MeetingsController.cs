@@ -46,7 +46,25 @@ namespace SacramentMeetingPlanner.Controllers
             return View(meeting);
         }
 
-        
+        // GET: Meetings/Details/5
+        public async Task<IActionResult> Print(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var meeting = await _context.Meeting
+                .FirstOrDefaultAsync(m => m.MeetingId == id);
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+
+            return View(meeting);
+        }
+
+
 
         // GET: Meetings/Create
         public IActionResult Create()

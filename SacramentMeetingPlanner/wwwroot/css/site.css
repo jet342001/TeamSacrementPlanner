@@ -7,6 +7,10 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.slight-offset{
+    padding-left: 25px;
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -16,6 +20,17 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.print-title{
+    padding-left: 200px;
+    padding-bottom: 15px;
+}
+
+.song-name{
+    font-size:smaller;
+    padding-left: 200px;
+    padding-bottom: 10px;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
