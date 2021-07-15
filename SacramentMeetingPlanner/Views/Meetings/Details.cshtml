@@ -3,70 +3,73 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="details-container">
 
-<h1>Details</h1>
+<div class="container page-wrapper">
 
 <div>
-    <h4>Meeting</h4>
-    <hr />
+    <p class="details-title">Sacrament Meeting</p>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class ="col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.StartAt)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @Html.DisplayFor(model => model.StartAt)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.Conductor)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @Html.DisplayFor(model => model.Conductor)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.OpeningSongNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @await Html.PartialAsync("_HymnDetails", ViewData["OpeningHymn"])
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.SacramentSongNumber)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 custom-border-bottom">
             @await Html.PartialAsync("_HymnDetails", ViewData["SacramentHymn"])
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.ClosingSongNumber)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 custom-border-bottom">
             @await Html.PartialAsync("_HymnDetails", ViewData["ClosingHymn"])
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.IntermediateSongNumber)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 custom-border-bottom">
             @await Html.PartialAsync("_HymnDetails", ViewData["IntermediateHymn"])
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.MusicalNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @Html.DisplayFor(model => model.MusicalNumber)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.OpeningPrayerBy)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @Html.DisplayFor(model => model.OpeningPrayerBy)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 custom-border-bottom">
             @Html.DisplayNameFor(model => model.ClosingPrayerBy)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 custom-border-bottom">
             @Html.DisplayFor(model => model.ClosingPrayerBy)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MeetingId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="space" asp-action="Index"> <i class="far fa-arrow-alt-circle-left icon-space"></i> Back to List</a> |
+    <a class="space" asp-action="Edit" asp-route-id="@Model.MeetingId">Edit <i class="fas fa-edit icon-space"></i> </a> 
+</div>
+
+</div>
 </div>

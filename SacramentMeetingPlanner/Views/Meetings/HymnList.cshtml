@@ -1,0 +1,54 @@
+﻿
+@model SacramentMeetingPlanner.Models.Hymn
+
+@{
+}
+
+@if (Model != null)
+{
+    <div>#@Model.SongNumber - @Model.Name</div>
+
+    @if (Model.Pdf != null)
+    {
+        <div>
+            <a href="@Model.Pdf">Sheet Music</a>
+        </div>
+    }
+    else
+    {
+        <div>Sheet Music is not available</div>
+    }
+
+    @if (Model.Mp3 != null)
+    {
+        <div>
+            <a href="@Model.Mp3">Listen</a>
+        </div>
+    }
+    else
+    {
+        <div>Audio is not available</div>
+    }
+
+    @if (Model.Video1 != null)
+    {
+        <div>
+            <a href="@Model.Video1">Watch</a>
+        </div>
+    }
+    else if (Model.Video2 != null)
+    {
+        <div>
+            <a href="@Model.Video2">Watch</a>
+        </div>
+    }
+    else
+    {
+        <div>Video is not available</div>
+    }
+
+}
+else
+{
+    <div>None</div>
+}

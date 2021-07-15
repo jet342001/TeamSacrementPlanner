@@ -4,9 +4,10 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container page-wrapper">
 
-<h4>Meeting</h4>
+
+<h4>Editing Meeting Plan</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -59,14 +60,15 @@
                 <span asp-validation-for="ClosingPrayerBy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+    <a class="btn btn-secondary secondary-button custom-gray" asp-action="Index">Back to List</a>
+                <input type="submit" value="Save" class="btn btn-primary secondary-button custom-blue" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+</div>
 </div>
 
 @section Scripts {

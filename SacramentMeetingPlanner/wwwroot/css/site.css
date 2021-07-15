@@ -1,6 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -18,12 +19,84 @@ a {
   border-color: #1861ac;
 }
 
+.custom-gray {
+    background-color: #BDBDBD;
+    border-color: #BDBDBD;
+}
+
+.custom-red {
+    background-color: #D77A5D;
+    border-color: #D77A5D;
+}
+
+.custom-blue {
+    background-color: #2D9CDB;
+    border-color: #2D9CDB;
+}
+
+a {
+    color: #2F80ED;
+}
+
+.icon-space{
+    padding-left: 5px;
+}
+
+.space{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+/*Header*/
+
+.header-vector {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.nav-style {
+    position: relative;
+    min-height: 69px;
+    margin-bottom : 0 !important;
+}
+.header-title {
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 18px;
+    color: #4F4F4F;
+}
+.header-subtitle {
+    margin-bottom: 0;
+    font-weight: 200;
+    font-size: 14px;
+    color: #4F4F4F;
+    text-align: left;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.25em;
+    font-variant: small-caps;
+}
+.nav-container{
+    margin-left: 30px;
+}
+.nav-title-wrapper{
+    margin-right: 30px;
+}
+.nav-item-styles {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4F4F4F;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -44,7 +117,7 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+ box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
 }
 
 button.accept-policy {
@@ -52,6 +125,151 @@ button.accept-policy {
   line-height: inherit;
 }
 
+/*home*/
+.cover-wrapper{
+    height: 360px;
+    position:relative;
+}
+
+.cover-image{
+    position:absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    z-index: -1;
+
+}
+.home-container{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.home-image{
+    width: 11%;
+}
+.home-right-side{
+    display: flex;
+    flex-direction:column;
+    margin-left: 60px;
+    width: 40%;
+}
+.home-phrase {
+    font-style: italic;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    color: #4F4F4F;
+    margin-bottom: 12px;
+}
+.phrase-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+    color: #4F4F4F;
+}
+.phrase-subtitle {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+.custom-btn {
+    max-width: 191px;
+    background-color: #6FCF97;
+    font-size: 14px;
+    border-color: #6FCF97;
+}
+.secondary-button{
+    font-size: 14px;
+}
+
+/*Table*/
+
+th {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+    color: #4F4F4F;
+}
+td {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #4F4F4F;
+}
+
+.dropdown-item-style {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #828282;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 500px){
+    .custom-btn {
+        max-width: 191px;
+        background-color: #6FCF97;
+        font-size: 12px;
+        border-color: #6FCF97;
+    }
+    .secondary-button {
+        font-size: 12px;
+    }
+}
+
+/*Details*/
+
+.details-container {
+    background: #FFFAEF;
+    min-height: 100vh;
+}
+.page-wrapper{
+    padding-top: 90px;
+}
+.details-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 20px;
+    color: #2F1C08;
+    margin-block: 38px;
+}
+.custom-border-bottom {
+    border-bottom: 0.6px dashed #2F1C08;
+    padding-bottom: 8px;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.details-row{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.details-options {
+    display: flex;
+    justify-content: flex-end;
+}
+    .details-options a {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.01em;
+        color: #2F80ED;
+    }
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -63,8 +281,11 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+
 .footer {
-  position: absolute;
+  position: fixed;
+  background: #fff;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
