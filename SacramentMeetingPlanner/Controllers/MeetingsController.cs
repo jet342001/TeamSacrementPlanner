@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +20,56 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Meetings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber
+        )
         {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var allMeetings = from s in _context.Meeting
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                allMeetings = allMeetings.Where(s => s.Conductor.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    allMeetings = allMeetings.OrderByDescending(s => s.Conductor);
+                    break;
+                case "Date":
+                    allMeetings = allMeetings.OrderBy(s => s.StartAt);
+                    break;
+                case "date_desc":
+                    allMeetings = allMeetings.OrderByDescending(s => s.StartAt);
+                    break;
+                default:
+                    allMeetings = allMeetings.OrderBy(s => s.StartAt);
+                    break;
+            }
+
+            int pageSize = 3;
+            /*return View(await PaginatedList<Student>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize));*/
+
+
             var meetings = await _context.Meeting.ToListAsync();
             meetings.ForEach(LoadAllUsedHymns);
-            return View(meetings);
+            return View(allMeetings);
         }
 
         // GET: Meetings/Details/5
@@ -206,4 +252,3 @@ namespace SacramentMeetingPlanner.Controllers
         }
     }
 }
-// TEST COMMENT TO MAKE SURE I CAN SUCCESSFULLY PULL AND PUSH TO MASTER BRANCH
