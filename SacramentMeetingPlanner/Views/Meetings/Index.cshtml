@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SacramentMeetingPlanner.Models.Meeting>
+﻿@*@model IEnumerable<SacramentMeetingPlanner.Models.Meeting>*@
+@model PaginatedList<SacramentMeetingPlanner.Models.Meeting>
 
 @{
     ViewData["Title"] = "Home";
@@ -20,13 +21,13 @@
             <p class="phrase-subtitle">
                 Of the Quorum of the Twelve Apostles
             </p>
-        <form>
-        <button asp-action="Create" class="btn btn-success custom-btn">Create New Meeting Plan</button>
-        </form>
+            <form>
+                <button asp-action="Create" class="btn btn-success custom-btn">Create New Meeting Plan</button>
+            </form>
         </div>
 
     </div>
-<img src="~/img/background-home.png" class="cover-image" />
+    <img src="~/img/background-home.png" class="cover-image" />
 </div>
 
 <form asp-action="Index" method="get">
@@ -41,88 +42,116 @@
 
 <div class="container">
 
-<table class="table table-responsive-sm table-responsive-md">
-    <thead>
-        <tr>
-            <th scope="col">
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Meeting Date</a>
-                @*@Html.DisplayNameFor(model => model.StartAt)*@
-            </th>
-            <th scope="col">
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Conducting</a>
-                @*@Html.DisplayNameFor(model => model.Conductor)*@
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.OpeningSongNumber)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.SacramentSongNumber)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.ClosingSongNumber)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.IntermediateSongNumber)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.MusicalNumber)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.OpeningPrayerBy)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.ClosingPrayerBy)
-            </th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conductor)
-            </td>
-            <td>
-                @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.OpeningSongNumber}"])
-            </td>
-            <td>
-                @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.SacramentSongNumber}"])
-            </td>
-            <td>
-                @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.ClosingSongNumber}"])
-            </td>
-            <td>
-                @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.IntermediateSongNumber}"])
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MusicalNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningPrayerBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClosingPrayerBy)
-            </td>
-            <td>
-                <div class="dropdown">
-                    <a data-toggle="dropdown" data-boundary="window" id="dropdownMenuButton"  aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                        </svg>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item dropdown-item-style" asp-action="Edit" asp-route-id="@item.MeetingId">Edit</a></li>
-                            <li><a class="dropdown-item dropdown-item-style" asp-action="Details" asp-route-id="@item.MeetingId">Details</a></li>
-                            <li><a class="dropdown-item dropdown-item-style" asp-action="Delete" asp-route-id="@item.MeetingId">Delete</a></li>
-                            <li><a class="dropdown-item dropdown-item-style" asp-action="Print" asp-route-id="@item.MeetingId">Print</a></li>
-                        </ul>
-                </div>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table table-responsive-sm table-responsive-md">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Meeting Date</a>
+                    @*@Html.DisplayNameFor(model => model.StartAt)*@
+                </th>
+                <th scope="col">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Conducting</a>
+                    @*@Html.DisplayNameFor(model => model.Conductor)*@
+                </th>
+                <th scope="col">
+                    Opening Song Number
+                    @*@Html.DisplayNameFor(model => model.OpeningSongNumber)*@
+                </th>
+                <th scope="col">
+                    Sacrament Song Number
+                    @*@Html.DisplayNameFor(model => model.SacramentSongNumber)*@
+                </th>
+                <th scope="col">
+                    Closing Song Number
+                    @*@Html.DisplayNameFor(model => model.ClosingSongNumber)*@
+                </th>
+                <th scope="col">
+                    Intermediate Song Number
+                    @*@Html.DisplayNameFor(model => model.IntermediateSongNumber)*@
+                </th>
+                <th scope="col">
+                    Musical Number
+                    @*@Html.DisplayNameFor(model => model.MusicalNumber)*@
+                </th>
+                <th scope="col">
+                    Opening Prayer
+                    @*@Html.DisplayNameFor(model => model.OpeningPrayerBy)*@
+                </th>
+                <th scope="col">
+                    Closing Prayer
+                    @*@Html.DisplayNameFor(model => model.ClosingPrayerBy)*@
+                </th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Conductor)
+                    </td>
+                    <td>
+                        @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.OpeningSongNumber}"])
+                    </td>
+                    <td>
+                        @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.SacramentSongNumber}"])
+                    </td>
+                    <td>
+                        @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.ClosingSongNumber}"])
+                    </td>
+                    <td>
+                        @await Html.PartialAsync("HymnList", ViewData[$"Hymn-{item.IntermediateSongNumber}"])
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MusicalNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpeningPrayerBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingPrayerBy)
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" data-boundary="window" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                </svg>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item dropdown-item-style" asp-action="Edit" asp-route-id="@item.MeetingId">Edit</a></li>
+                                <li><a class="dropdown-item dropdown-item-style" asp-action="Details" asp-route-id="@item.MeetingId">Details</a></li>
+                                <li><a class="dropdown-item dropdown-item-style" asp-action="Delete" asp-route-id="@item.MeetingId">Delete</a></li>
+                                <li><a class="dropdown-item dropdown-item-style" asp-action="Print" asp-route-id="@item.MeetingId">Print</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

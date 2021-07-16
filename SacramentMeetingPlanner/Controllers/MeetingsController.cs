@@ -64,12 +64,12 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             int pageSize = 3;
-            /*return View(await PaginatedList<Student>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize));*/
 
 
             var meetings = await _context.Meeting.ToListAsync();
             meetings.ForEach(LoadAllUsedHymns);
-            return View(allMeetings);
+            return View(await PaginatedList<Meeting>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize));
+            /*return View(allMeetings);*/
         }
 
         // GET: Meetings/Details/5
