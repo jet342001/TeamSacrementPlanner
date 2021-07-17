@@ -27,6 +27,11 @@ namespace SacramentMeetingPlanner.Models
         [Range(1, 342)]
         public int SacramentSongNumber { get; set; }
 
+        /*[Required]
+        [Display(Name = "Number of Speakers")]
+        [Range(0,5)]
+        public int NumberOfSpeakers { get; set; }*/
+
         [Required]
         [Display(Name = "Closing Song")]
         [Range(1, 342)]
