@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
 using SacramentMeetingPlanner.Models;
+using SacramentMeetingPlanner.Models.ChurchViewModels;
 
 namespace SacramentMeetingPlanner.Controllers
 {
@@ -27,6 +29,10 @@ namespace SacramentMeetingPlanner.Controllers
             int? pageNumber
         )
         {
+
+            var allMeetings = _context.Meeting
+                .Include(i => i.Speakers).Select(m=>m);
+
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
@@ -41,8 +47,8 @@ namespace SacramentMeetingPlanner.Controllers
                 searchString = currentFilter;
             }
 
-            var allMeetings = from s in _context.Meeting
-                           select s;
+            //var allMeetings = from s in _context.Meeting
+            //               select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 allMeetings = allMeetings.Where(s => s.Conductor.Contains(searchString));
@@ -65,10 +71,11 @@ namespace SacramentMeetingPlanner.Controllers
 
             int pageSize = 3;
 
-
-            var meetings = await _context.Meeting.ToListAsync();
+            var meetings =
+                await PaginatedList<Meeting>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize);
+            //var meetings = await _context.Meeting.ToListAsync();
             meetings.ForEach(LoadAllUsedHymns);
-            return View(await PaginatedList<Meeting>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(meetings);
             /*return View(allMeetings);*/
         }
 

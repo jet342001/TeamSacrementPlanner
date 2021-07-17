@@ -1,5 +1,6 @@
 ﻿@*@model IEnumerable<SacramentMeetingPlanner.Models.Meeting>*@
-@model PaginatedList<SacramentMeetingPlanner.Models.Meeting>
+@*@model PaginatedList<SacramentMeetingPlanner.Models.Meeting>*@
+@model List<SacramentMeetingPlanner.Models.Meeting>;
 
 @{
     ViewData["Title"] = "Home";
@@ -56,19 +57,19 @@
                     @*@Html.DisplayNameFor(model => model.Conductor)*@
                 </th>
                 <th scope="col">
-                    Opening Song Number
+                    Opening Hymn
                     @*@Html.DisplayNameFor(model => model.OpeningSongNumber)*@
                 </th>
                 <th scope="col">
-                    Sacrament Song Number
+                    Sacrament Hymn
                     @*@Html.DisplayNameFor(model => model.SacramentSongNumber)*@
                 </th>
                 <th scope="col">
-                    Closing Song Number
+                    Closing Hymn
                     @*@Html.DisplayNameFor(model => model.ClosingSongNumber)*@
                 </th>
                 <th scope="col">
-                    Intermediate Song Number
+                    Intermediate Hymn
                     @*@Html.DisplayNameFor(model => model.IntermediateSongNumber)*@
                 </th>
                 <th scope="col">
@@ -82,6 +83,9 @@
                 <th scope="col">
                     Closing Prayer
                     @*@Html.DisplayNameFor(model => model.ClosingPrayerBy)*@
+                </th>
+                <th>
+                    Speakers
                 </th>
                 <th scope="col"></th>
             </tr>
@@ -118,6 +122,18 @@
                         @Html.DisplayFor(modelItem => item.ClosingPrayerBy)
                     </td>
                     <td>
+                        @if (item.Speakers.Count == 0)
+                        {
+                            <div>None</div>
+                        }
+                        @foreach (var speaker in item.Speakers.OrderBy(x => x.Order))
+                        {
+                            <div>
+                                <span>@speaker.Name</span> - <span>@speaker.Subject</span>
+                            </div>
+                        }
+                    </td>
+                    <td>
                         <div class="dropdown">
                             <a data-toggle="dropdown" data-boundary="window" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -137,7 +153,7 @@
         </tbody>
     </table>
 
-    @{
+@*    @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }
@@ -155,9 +171,5 @@
        asp-route-currentFilter="@ViewData["CurrentFilter"]"
        class="btn btn-default @nextDisabled">
         Next
-    </a>
-
-
+    </a>*@
 </div>
-
-   

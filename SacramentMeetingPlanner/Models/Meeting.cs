@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SacramentMeetingPlanner.Models
@@ -45,5 +46,8 @@ namespace SacramentMeetingPlanner.Models
         [Required]
         [Display(Name = "Closing Prayer")]
         public string ClosingPrayerBy { get; set; }
+
+        public ICollection<Speaker> Speakers { get; set; }
+
     }
 }

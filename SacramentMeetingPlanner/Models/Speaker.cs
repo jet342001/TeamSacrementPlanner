@@ -10,6 +10,7 @@ namespace SacramentMeetingPlanner.Models
     {
         [Required]
         public int SpeakerId { get; set; }
+
         public int MeetingId { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 2)]
@@ -20,5 +21,7 @@ namespace SacramentMeetingPlanner.Models
         [Required]
         [Range(0, 5)]
         public int Order { get; set; }
+
+        public Meeting Meeting { get; set; }
     }
 }
