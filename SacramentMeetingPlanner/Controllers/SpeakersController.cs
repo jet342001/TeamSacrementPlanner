@@ -106,13 +106,12 @@ namespace SacramentMeetingPlanner.Controllers
 
             if (ModelState.IsValid)
             {
-                var meeting = await _context.Meeting.Include(s => s.Speakers).FirstOrDefaultAsync(m => m.MeetingId == speaker.MeetingId);
+                var meeting = await _context.Meeting.Include(r => r.Speakers).AsNoTracking().FirstOrDefaultAsync(m => m.MeetingId == speaker.MeetingId);
                 if (meeting.Speakers.Any(s => s.Order == speaker.Order && s.SpeakerId != speaker.SpeakerId))
                 {
                     ModelState.AddModelError("Order", "This order number is already taken. Order numbers " + string.Join(", ", meeting.Speakers.Select(s => s.Order.ToString()).ToArray()) + " are used.");
                     return View(speaker);
                 }
-
                 try
                 {
                     _context.Update(speaker);
