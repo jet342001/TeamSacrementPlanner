@@ -35,6 +35,25 @@
                 <span asp-validation-for="SacramentSongNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Speakers"></label>
+                <ul>
+                    <li><a class="dropdown-item dropdown-item-style" asp-controller="Speakers" asp-action="Create" asp-route-meetingid="@Model.MeetingId">Create</a></li>
+                </ul>
+                @if (Model.Speakers.Count == 0)
+                {
+                    <div>None</div>
+                }
+                @foreach (var speaker in Model.Speakers.OrderBy(x => x.Order))
+                {
+            <div>
+                <span>@speaker.Name</span> - <span>@speaker.Subject</span>
+                <a class="" asp-controller="Speakers" asp-action="Edit" asp-route-id="@speaker.SpeakerId">Edit</a> |
+                <a class="" asp-controller="Speakers" asp-action="Details" asp-route-id="@speaker.SpeakerId">Details</a> |
+                <a class="" asp-controller="Speakers" asp-action="Delete" asp-route-id="@speaker.SpeakerId">Delete</a>
+            </div>
+                }
+            </div>
+            <div class="form-group">
                 <label asp-for="ClosingSongNumber" class="control-label"></label>
                 @Html.DropDownListFor(model => model.ClosingSongNumber, ViewBag.HymnSelectionList as SelectList, "Select Hymn", new { @class = "form-control" })
                 <span asp-validation-for="ClosingSongNumber" class="text-danger"></span>

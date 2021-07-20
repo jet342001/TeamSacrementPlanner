@@ -44,8 +44,9 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Speakers/Create
-        public IActionResult Create()
+        public IActionResult Create(int meetingId)
         {
+            ViewData["MeetingId"] = meetingId;
             return View();
         }
 
@@ -56,12 +57,22 @@ namespace SacramentMeetingPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SpeakerId,MeetingId,Name,Subject,Order")] Speaker speaker)
         {
+
+            var meeting = await _context.Meeting.Include(s => s.Speakers).FirstOrDefaultAsync(m => m.MeetingId == speaker.MeetingId);
+            if (meeting.Speakers.Any(s => s.Order == speaker.Order))
+            {
+                ModelState.AddModelError("Order", "This order number is already taken. Order numbers " + string.Join(", ", meeting.Speakers.Select(s => s.Order.ToString()).ToArray()) + " are used.");
+                ViewData["MeetingId"] = speaker.MeetingId;
+                return View(speaker);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(speaker);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit), "Meetings", new { id=speaker.MeetingId });
             }
+            ViewData["MeetingId"] = speaker.MeetingId;
             return View(speaker);
         }
 
@@ -95,6 +106,13 @@ namespace SacramentMeetingPlanner.Controllers
 
             if (ModelState.IsValid)
             {
+                var meeting = await _context.Meeting.Include(s => s.Speakers).FirstOrDefaultAsync(m => m.MeetingId == speaker.MeetingId);
+                if (meeting.Speakers.Any(s => s.Order == speaker.Order && s.SpeakerId != speaker.SpeakerId))
+                {
+                    ModelState.AddModelError("Order", "This order number is already taken. Order numbers " + string.Join(", ", meeting.Speakers.Select(s => s.Order.ToString()).ToArray()) + " are used.");
+                    return View(speaker);
+                }
+
                 try
                 {
                     _context.Update(speaker);
@@ -111,7 +129,7 @@ namespace SacramentMeetingPlanner.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit), "Meetings", new { id = speaker.MeetingId });
             }
             return View(speaker);
         }
@@ -142,7 +160,7 @@ namespace SacramentMeetingPlanner.Controllers
             var speaker = await _context.Speaker.FindAsync(id);
             _context.Speaker.Remove(speaker);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Edit), "Meetings", new { id = speaker.MeetingId });
         }
 
         private bool SpeakerExists(int id)

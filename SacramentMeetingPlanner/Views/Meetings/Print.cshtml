@@ -13,13 +13,13 @@
 
     <div class="line-item">
         <span>@Html.DisplayNameFor(model => model.Conductor)</span>
-        <hr/>
+        <hr />
         <span>@Html.DisplayFor(model => model.Conductor)</span>
     </div>
 
     <div class="line-item">
         <span>Opening Hymn</span>
-        <hr/>
+        <hr />
         <span>
             #@(((Hymn) ViewData[$"Hymn-{Model.OpeningSongNumber}"]).DisplayName)
         </span>
@@ -27,36 +27,34 @@
 
     <div class="line-item">
         <span>Invocation</span>
-        <hr/>
+        <hr />
         <span>@Html.DisplayFor(model => model.OpeningPrayerBy)</span>
     </div>
 
     <div class="line-item">
-        <span>First Speaker </span>
-        <hr/>
-        <span>(placeholder)</span>
-    </div>
-
-    <div class="line-item">
         <span>@Html.DisplayNameFor(model => model.SacramentSongNumber) </span>
-        <hr/>
+        <hr />
         <span>
-            #@(((Hymn) ViewData[$"Hymn-{Model.SacramentSongNumber}"]).DisplayName) 
+            #@(((Hymn) ViewData[$"Hymn-{Model.SacramentSongNumber}"]).DisplayName)
         </span>
     </div>
 
-    <div class="line-item">
-        <span>Second Speaker</span>
-        <hr />
-        <span>(placeholder)</span>
-    </div>
-
+    @{ var firstSpeaker = Model.Speakers.FirstOrDefault();}
+    @if (firstSpeaker != null)
+    {
+        <div class="line-item">
+            <span>Speaker</span>
+            <hr />
+            <span>@firstSpeaker.Name</span>
+            <span>@firstSpeaker.Subject</span>
+        </div>
+    }
 
     @if (Model.IntermediateSongNumber != null)
     {
         <div class="line-item">
             <span>@Html.DisplayNameFor(model => model.IntermediateSongNumber)</span>
-            <hr/>
+            <hr />
             <span>
                 #@(((Hymn) ViewData[$"Hymn-{Model.IntermediateSongNumber}"]).DisplayName)
             </span>
@@ -67,28 +65,32 @@
     {
         <div class="line-item">
             <span>@Html.DisplayNameFor(model => model.MusicalNumber)</span>
-            <hr/>
+            <hr />
             <span>@Html.DisplayFor(model => model.MusicalNumber)</span>
         </div>
     }
 
-    <div class="line-item">
-        <span>Last Speaker</span>
-        <hr/>
-        <span>(placeholder)</span>
-    </div>
+    @foreach (var speaker in Model.Speakers.Skip(1))
+    {
+        <div class="line-item">
+            <span>Speaker</span>
+            <hr />
+            <span>@speaker.Name</span>
+            <span>@speaker.Subject</span>
+        </div>
+    }
 
     <div class="line-item">
         <span>@Html.DisplayNameFor(model => model.ClosingSongNumber)</span>
-        <hr/>
+        <hr />
         <span>
-            #@(((Hymn) ViewData[$"Hymn-{Model.ClosingSongNumber}"]).DisplayName) 
+            #@(((Hymn) ViewData[$"Hymn-{Model.ClosingSongNumber}"]).DisplayName)
         </span>
     </div>
 
     <div class="line-item">
         <span>Benediction</span>
-        <hr/>
+        <hr />
         <span>@Html.DisplayFor(model => model.ClosingPrayerBy)</span>
     </div>
 

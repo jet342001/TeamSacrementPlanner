@@ -106,7 +106,7 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var meeting = await _context.Meeting
+            var meeting = await _context.Meeting.Include(s => s.Speakers)
                 .FirstOrDefaultAsync(m => m.MeetingId == id);
             if (meeting == null)
             {
@@ -132,13 +132,13 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,FirstSpeaker,SecondSpeaker,LastSpeaker,ClosingSongNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
+        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,ClosingSongNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(meeting);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit), new { id = meeting.MeetingId });
             }
 
             ViewBag.HymnSelectionList = _hymnLibrary.GetSelectionList();
@@ -153,7 +153,7 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var meeting = await _context.Meeting.FindAsync(id);
+            var meeting = await _context.Meeting.Include(i => i.Speakers).Where(m => m.MeetingId == id).SingleOrDefaultAsync();
             if (meeting == null)
             {
                 return NotFound();
