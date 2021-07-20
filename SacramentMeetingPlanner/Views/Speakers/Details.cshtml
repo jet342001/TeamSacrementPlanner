@@ -4,10 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Speaker</h4>
+<div class="container page-wrapper">
+    <h4>Speaker Details</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -30,8 +28,8 @@
         </dd>
     </dl>
 </div>
-<div>
+<div class="container">
     <input type="hidden" asp-for="MeetingId" />
     <a asp-action="Edit" asp-route-id="@Model.SpeakerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Meetings" asp-action="Edit" asp-route-id="@Model.MeetingId">Back to List</a>
 </div>

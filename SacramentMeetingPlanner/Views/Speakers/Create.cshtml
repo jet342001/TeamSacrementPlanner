@@ -4,11 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Speaker</h4>
-<hr />
-<div class="row">
+<div class="container page-wrapper">
+    <h4>Create Speaker</h4>
+    <hr />
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,7 +35,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Meetings" asp-action="Edit" asp-route-id="@ViewData["MeetingId"]">Back to List</a>
 </div>
 
 @section Scripts {
