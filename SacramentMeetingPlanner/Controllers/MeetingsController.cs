@@ -132,7 +132,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,ClosingSongNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
+        public async Task<IActionResult> Create([Bind("MeetingId,StartAt,Conductor,OpeningSongNumber,SacramentSongNumber,FirstSpeaker,SecondSpeaker,LastSpeaker,ClosingSongNumber,IntermediateSong,IntermediateSongNumber,MusicalNumber,OpeningPrayerBy,ClosingPrayerBy")] Meeting meeting)
         {
             if (ModelState.IsValid)
             {

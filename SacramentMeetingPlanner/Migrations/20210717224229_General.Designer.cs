@@ -10,8 +10,8 @@ using SacramentMeetingPlanner.Data;
 namespace SacramentMeetingPlanner.Migrations
 {
     [DbContext(typeof(MeetingContext))]
-    [Migration("20210708010318_initial create")]
-    partial class initialcreate
+    [Migration("20210717224229_General")]
+    partial class General
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,38 +28,29 @@ namespace SacramentMeetingPlanner.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClosingNumber")
+                    b.Property<string>("ClosingPrayerBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClosingSongNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClosingPrayerBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClosingSong")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Conductor")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IntermediateSong")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IntermediateSongNumber")
+                    b.Property<int?>("IntermediateSongNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("MusicalNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OpeningPrayerBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OpeningSong")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OpeningSongNumber")
                         .HasColumnType("int");
-
-                    b.Property<string>("SacramentSong")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SacramentSongNumber")
                         .HasColumnType("int");
@@ -83,17 +74,39 @@ namespace SacramentMeetingPlanner.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("SpeakerId");
 
+                    b.HasIndex("MeetingId");
+
                     b.ToTable("Speaker");
+                });
+
+            modelBuilder.Entity("SacramentMeetingPlanner.Models.Speaker", b =>
+                {
+                    b.HasOne("SacramentMeetingPlanner.Models.Meeting", "Meeting")
+                        .WithMany("Speakers")
+                        .HasForeignKey("MeetingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meeting");
+                });
+
+            modelBuilder.Entity("SacramentMeetingPlanner.Models.Meeting", b =>
+                {
+                    b.Navigation("Speakers");
                 });
 #pragma warning restore 612, 618
         }
