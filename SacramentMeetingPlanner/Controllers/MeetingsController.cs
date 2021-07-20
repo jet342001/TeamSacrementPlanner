@@ -69,7 +69,7 @@ namespace SacramentMeetingPlanner.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
 
             var meetings =
                 await PaginatedList<Meeting>.CreateAsync(allMeetings.AsNoTracking(), pageNumber ?? 1, pageSize);

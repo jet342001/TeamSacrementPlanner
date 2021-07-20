@@ -85,7 +85,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td style="white-space: nowrap">
                         @Html.DisplayFor(modelItem => item.StartAt)
                     </td>
                     <td>
@@ -116,11 +116,11 @@
                         @if (item.Speakers.Count == 0)
                         {
                             <div>None</div>
-                        }
+                        } 
                         @foreach (var speaker in item.Speakers.OrderBy(x => x.Order))
                         {
                             <div>
-                                <span>@speaker.Name</span> - <span>@speaker.Subject</span>
+                                <span style="white-space: nowrap">@speaker.Order. @speaker.Name</span> @*- <span>@speaker.Subject</span>*@
                             </div>
                         }
                     </td>
