@@ -26,7 +26,7 @@ namespace SacramentMeetingPlanner.Data
                     OpeningSongNumber = 1,
                     SacramentSongNumber = 113,
                     ClosingSongNumber = 1,
-                    IntermediateSongNumber = 0,
+                    IntermediateSongNumber = null,
                     OpeningPrayerBy = "Jeffery Epsen",
                     ClosingPrayerBy = "Gislene Maxwell", 
                 },
@@ -59,7 +59,7 @@ namespace SacramentMeetingPlanner.Data
                     OpeningSongNumber = 7,
                     SacramentSongNumber = 99,
                     ClosingSongNumber = 3,
-                    IntermediateSongNumber = 342,
+                    IntermediateSongNumber = 313,
                     MusicalNumber = "Sidney Rodrigues Sing your favorite hymn",
                     OpeningPrayerBy = "Gene Higgins",
                     ClosingPrayerBy = "Andrew Brower"
